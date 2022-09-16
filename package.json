@@ -15,7 +15,6 @@
     "nodemon": "^2.0.19",
     "validator": "^13.7.0"
   },
-  "proxy": "https://bull-bear-pi.vercel.app/",
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
