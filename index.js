@@ -1,4 +1,6 @@
 require('dotenv').config()
+const dotenv = require('dotenv')
+dotenv.config()
 const mongoose = require('mongoose')
 const cors = require('cors')
 const express = require('express')
@@ -40,7 +42,10 @@ app.use('/api/watchlist', watchlistRoutes)
 
 // connect to db
 mongoose
-	.connect(process.env.ATLAS_URI)
+	.connect(process.env.ATLAS_URI, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
 	.then(() => {
 		console.log('Connected to Mongo DB')
 		app.listen(process.env.PORT, () => {
