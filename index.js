@@ -1,4 +1,3 @@
-const serverless = require('serverless-http')
 require('dotenv').config()
 const dotenv = require('dotenv')
 dotenv.config()
@@ -57,4 +56,4 @@ mongoose
 		console.log(error)
 	})
 
-module.exports.handler = serverless(app)
+module.exports = app
