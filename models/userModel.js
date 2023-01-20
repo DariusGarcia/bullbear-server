@@ -6,6 +6,7 @@ const userSchema = new Schema(
     username: {
       type: String,
       required: true,
+      unique: true,
     },
     password: {
       type: String,
@@ -29,8 +30,8 @@ userSchema.statics.signup = async function (username, password) {
     throw new Error('Please provide both username and password.')
   }
   // check if username already exists
-  const existingEmail = await this.findOne({ username })
-  if (existingEmail) {
+  const existingUsername = await this.findOne({ username })
+  if (existingUsername) {
     throw Error('username already exists')
   }
   // hashing the password using bcrypt hashing algorithm
