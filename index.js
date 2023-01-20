@@ -4,12 +4,12 @@ const cors = require('cors')
 const express = require('express')
 const routes = require('./routes')
 const app = express()
-
 const PORT = process.env.PORT || 18490
+const ATLAS_URI = process.env.ATLAS_URI
 
-process.on('uncaughtException', function (err) {
+process.on('uncaughtException', (err) => {
   console.error(err)
-  console.log('Node NOT Exiting...')
+  console.log('\nNode NOT Exiting...')
 })
 
 // middleware
@@ -30,18 +30,13 @@ app.use(routes)
 
 // connect to db
 // prettier-ignore
-mongoose.connect(process.env.ATLAS_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+mongoose.connect(ATLAS_URI, {useNewUrlParser: true, useUnifiedTopology: true,})
   .then(() => {
-    console.log('Connected to Mongo DB')
+    console.log('\n-------------------------------\nConnected to MongoDB')
     app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server listening on port ${PORT}`)
+    console.log(`🚀 ~ Now listening on port ${PORT}\n-------------------------------\n`)
     })
   })
-  .catch((err) => {
-    console.log(err)
-  })
+  .catch((err) => console.log(err))
 
 module.exports = app

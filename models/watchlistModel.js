@@ -1,21 +1,26 @@
-const mongoose = require('mongoose')
-
-const Schema = mongoose.Schema
+const { Schema, model } = require('mongoose')
 
 const watchlistSchema = new Schema(
-	{
-		ticker: {
-			type: String,
-			required: true,
-		},
-
-		user_id: {
-			type: String,
-			required: true,
-		},
-	},
-
-	{ timestamps: true }
+  {
+    ticker: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    user_id: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
+  },
+  { timestamps: true }
 )
 
-module.exports = mongoose.model('Watchlist', watchlistSchema)
+const Watchlist = model('Watchlist', watchlistSchema)
+
+module.exports = Watchlist

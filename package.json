@@ -7,6 +7,7 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
+    "heroku": "^7.67.1",
     "joi": "^17.6.0",
     "joi-password-complexity": "^5.1.0",
     "jsonwebtoken": "^8.5.1",
@@ -21,14 +22,14 @@
   "main": "index.js",
   "engines": {
     "node": "18.x",
-    "npm": "8.13.2" 
+    "npm": "8.13.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
-  "keywords": [],
+  "keywords": ["Express server", "MongoDB"],
   "author": "Darius Garcia",
   "license": "ISC",
   "description": "Express.js backend for BullBear client"
