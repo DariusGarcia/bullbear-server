@@ -44,16 +44,16 @@ const createStock = async (req, res) => {
 const deleteStock = async (req, res) => {
   const { id } = req.params
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: 'No such stock found in watchlist' })
-  }
-
   const watchlist = await Watchlist.findOneAndDelete({ _id: id })
 
   if (!watchlist) {
-    return res.status(400).json({ error: 'No such stock found' })
+    return res
+      .status(404)
+      .json({ error: 'No stock found in watchlist with id: ' + id })
   }
-
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'Invalid id: ' + id })
+  }
   res.status(200).json(watchlist)
 }
 module.exports = {
