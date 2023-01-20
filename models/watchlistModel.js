@@ -12,12 +12,6 @@ const watchlistSchema = new Schema(
       required: true,
     },
   },
-  {
-    toJSON: {
-      getters: true,
-    },
-    id: false,
-  },
   { timestamps: true }
 )
 
