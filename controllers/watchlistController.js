@@ -30,7 +30,7 @@ const createStock = async (req, res) => {
   const { ticker } = req.body
   // add doc to mongoDB
   try {
-    let user_id = req.user._id
+    let user_id = req.user.user_id
     const watchlist = await Watchlist.create({ ticker, user_id })
     res.status(200).json(watchlist)
   } catch (error) {
