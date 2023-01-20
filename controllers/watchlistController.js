@@ -48,7 +48,7 @@ const deleteStock = async (req, res) => {
     return res.status(404).json({ error: 'No such stock found in watchlist' })
   }
 
-  const watchlist = await Watchlist.findOneAndDelete({ _id: id })
+  const watchlist = await Watchlist.findOneAndDelete(id)
 
   if (!watchlist) {
     return res.status(400).json({ error: 'No such stock found' })
