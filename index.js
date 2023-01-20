@@ -4,6 +4,7 @@ const cors = require('cors')
 const express = require('express')
 const routes = require('./routes')
 const app = express()
+app.use(cors())
 const PORT = process.env.PORT || 18490
 const ATLAS_URI = process.env.ATLAS_URI
 
@@ -13,7 +14,6 @@ process.on('uncaughtException', (err) => {
 })
 
 // middleware
-app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 // prettier-ignore

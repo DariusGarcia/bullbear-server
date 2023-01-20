@@ -5,7 +5,6 @@ const watchlistSchema = new Schema(
     ticker: {
       type: String,
       required: true,
-      unique: true,
     },
     user_id: {
       type: String,
