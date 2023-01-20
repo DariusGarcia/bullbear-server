@@ -13,12 +13,6 @@ const userSchema = new Schema(
       required: true,
       min: [8, 'Password has to be at least 8 characters.'],
     },
-    watchlists: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Watchlist',
-      },
-    ],
   },
   { timestamps: true }
 )
