@@ -1,7 +1,6 @@
 const ObjectId = require('mongoose').Types.ObjectId
 const jwt = require('jsonwebtoken')
 const { User } = require('../models/')
-const SECRET_KEY = process.env.SECRET_KEY
 
 const requireAuth = async (req, res, next) => {
   // verify authentication
@@ -12,12 +11,11 @@ const requireAuth = async (req, res, next) => {
 
   const token = authorization.split(' ')[1]
   try {
-    const { _id } = jwt.verify(token, SECRET_KEY)
+    const { _id } = jwt.verify(token, process.env.SECRET_KEY)
 
     // select property allows you to just select the property you want instead of the whole document
     // e.g. only returns ID instead of username, password, etc.
     req.user = await User.findOne({ _id }).select('_id')
-
     next()
   } catch (error) {
     console.log(error)
