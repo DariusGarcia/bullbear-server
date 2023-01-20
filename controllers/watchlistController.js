@@ -3,11 +3,11 @@ const ObjectId = require('mongoose').Types.ObjectId
 
 // get all stocks in watchlist
 const getAllStocks = async (req, res) => {
-  const userId = req.user._id
-  const allStocksArray = await Watchlist.find({ userId }).sort({
+  const user_id = req.user._id
+  const allStocks = await Watchlist.find({ user_id }).sort({
     createdAt: -1,
   })
-  res.status(200).json({ allStocksArray })
+  res.status(200).json({ allStocks })
 }
 
 // get a single stock
