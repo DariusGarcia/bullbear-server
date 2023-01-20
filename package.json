@@ -8,13 +8,9 @@
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "heroku": "^7.67.1",
-    "joi": "^17.6.0",
-    "joi-password-complexity": "^5.1.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.7.0",
     "mongoose": "^6.4.4",
-    "nodemon": "^2.0.19",
-    "postinstall": "^0.7.4",
     "validator": "^13.7.0"
   },
   "name": "server",
@@ -29,8 +25,14 @@
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
-  "keywords": ["Express server", "MongoDB"],
+  "keywords": [
+    "Express server",
+    "MongoDB"
+  ],
   "author": "Darius Garcia",
   "license": "ISC",
-  "description": "Express.js backend for BullBear client"
+  "description": "Express.js backend for BullBear client",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }
