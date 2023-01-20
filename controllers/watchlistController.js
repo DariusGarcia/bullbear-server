@@ -12,15 +12,17 @@ const getAllStocks = async (req, res) => {
 
 // get a single stock
 const getSingleStock = async (req, res) => {
-  const { stockId } = req.params
-  if (!ObjectId.isValid(stockId)) {
+  const { id } = req.params
+  if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: 'No such stock found in watchlist' })
   }
-  const existingStock = await Watchlist.findById(stockId)
-  if (!existingStock) {
-    return res.status(404).json({ error: 'No such stock found in watchlist' })
+  const stock = await Watchlist.findById(id)
+
+  if (!stock) {
+    return res.status(404).json({ error: 'No such stock in watchlist' })
   }
-  res.status(200).json({ existingStock })
+
+  res.status(200).json({ stock })
 }
 
 // add a stock to the watchlist
@@ -28,11 +30,13 @@ const createStock = async (req, res) => {
   const { ticker } = req.body
   // add doc to mongoDB
   try {
-    const user_id = req.user._id
+    let user_id = req.user._id
     const watchlist = await Watchlist.create({ ticker, user_id })
     res.status(200).json(watchlist)
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res
+      .status(400)
+      .json({ error: error.message, function: 'createStockFunction' })
   }
 }
 
