@@ -1,66 +1,57 @@
 const Watchlist = require('../models/watchlistModel')
-
-const mongoose = require('mongoose')
+const ObjectId = require('mongoose').Types.ObjectId
 
 // get all stocks in watchlist
 const getAllStocks = async (req, res) => {
-	const user_id = req.user._id
-
-	const allStocks = await Watchlist.find({ user_id }).sort({ createdAt: -1 })
-
-	res.status(200).json({ allStocks })
+  const userId = req.user._id
+  const allStocksArray = await Watchlist.find({ userId }).sort({
+    createdAt: -1,
+  })
+  res.status(200).json({ allStocksArray })
 }
 
-// get a single workout
+// get a single stock
 const getSingleStock = async (req, res) => {
-	const { id } = req.params
-
-	if (!mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(404).json({ error: 'No such stock found in watchlist' })
-	}
-	const stock = await Watchlist.findById(id)
-
-	if (!stock) {
-		return res.status(404).json({ error: 'No such stock in watchlist' })
-	}
-
-	res.status(200).json({ stock })
+  const { stockId } = req.params
+  if (!ObjectId.isValid(stockId)) {
+    return res.status(404).json({ error: 'No such stock found in watchlist' })
+  }
+  const existingStock = await Watchlist.findById(stockId)
+  if (!existingStock) {
+    return res.status(404).json({ error: 'No such stock found in watchlist' })
+  }
+  res.status(200).json({ existingStock })
 }
 
 // add a stock to the watchlist
 const createStock = async (req, res) => {
-	const { ticker } = req.body
-
-	// add doc to mongoDB
-	try {
-		const user_id = req.user._id
-		const watchlist = await Watchlist.create({ ticker, user_id })
-		res.status(200).json(watchlist)
-	} catch (error) {
-		res.status(400).json({ error: error.message })
-	}
+  const { ticker } = req.body
+  // add doc to mongoDB
+  try {
+    const userId = req.user._id
+    const watchlist = await Watchlist.create({ ticker, userId })
+    res.status(200).json(watchlist)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
 }
 
 // delete a stock from the watchlist
 const deleteStock = async (req, res) => {
-	const { id } = req.params
-
-	if (!mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(404).json({ error: 'No such stock found in watchlist' })
-	}
-
-	const watchlist = await Watchlist.findOneAndDelete({ _id: id })
-
-	if (!watchlist) {
-		return res.status(400).json({ error: 'No such stock found' })
-	}
-
-	res.status(200).json(watchlist)
+  const { stockId } = req.params
+  if (!ObjectId.isValid(stockId)) {
+    return res.status(404).json({ error: 'No such stock found in watchlist' })
+  }
+  const updatedWatchlist = await Watchlist.findOneAndDelete({ _id: stockId })
+  if (!updatedWatchlist) {
+    return res.status(400).json({ error: 'No such stock found' })
+  }
+  res.status(200).json(watchlist)
 }
 
 module.exports = {
-	createStock,
-	getAllStocks,
-	getSingleStock,
-	deleteStock,
+  createStock,
+  getAllStocks,
+  getSingleStock,
+  deleteStock,
 }
