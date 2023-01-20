@@ -16,7 +16,7 @@ const requireAuth = async (req, res, next) => {
 
     // select property allows you to just select the property you want instead of the whole document
     // e.g. only returns ID instead of username, password, etc.
-    req.user = await User.findOne({ _id: ObjectId(_id) }).select('_id')
+    req.user = await User.findOne({ _id: ObjectId({ _id }) }).select('_id')
     next()
   } catch (error) {
     console.log(error)
