@@ -28,8 +28,8 @@ const createStock = async (req, res) => {
   const { ticker } = req.body
   // add doc to mongoDB
   try {
-    const userId = req.user._id
-    const watchlist = await Watchlist.create({ ticker, userId })
+    const user_id = req.user._id
+    const watchlist = await Watchlist.create({ ticker, user_id })
     res.status(200).json(watchlist)
   } catch (error) {
     res.status(400).json({ error: error.message })
