@@ -1,4 +1,4 @@
-const { ObjectId } = require('mongoose').Types
+const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const { User } = require('../models/')
 const SECRET_KEY = process.env.SECRET_KEY
@@ -16,7 +16,14 @@ const requireAuth = async (req, res, next) => {
 
     // select property allows you to just select the property you want instead of the whole document
     // e.g. only returns ID instead of username, password, etc.
-    req.user = await User.findOne({ _id: ObjectId({ _id }) }).select('_id')
+    req.user = await User.findOne({ _id: mongoose.Types.ObjectId(_id) }).select(
+      '_id'
+    )
+    if (!req.user) {
+      return res
+        .status(401)
+        .json({ error: 'Invalid token: Request not authorized' })
+    }
     next()
   } catch (error) {
     console.log(error)
