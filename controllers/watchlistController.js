@@ -1,5 +1,5 @@
 const Watchlist = require('../models/watchlistModel')
-const ObjectId = require('mongoose').Types.ObjectId
+const mongoose = require('mongoose')
 
 // get all stocks in watchlist
 const getAllStocks = async (req, res) => {
@@ -30,7 +30,7 @@ const createStock = async (req, res) => {
   const { ticker } = req.body
   // add doc to mongoDB
   try {
-    let user_id = req.user._id
+    const user_id = req.user._id
     const watchlist = await Watchlist.create({ ticker, user_id })
     res.status(200).json(watchlist)
   } catch (error) {
@@ -44,7 +44,7 @@ const createStock = async (req, res) => {
 const deleteStock = async (req, res) => {
   const { id } = req.params
 
-  const watchlist = await Watchlist.findOneAndDelete({ _id: id })
+  const watchlist = await Watchlist.findOneAndDelete({ id })
 
   if (!watchlist) {
     return res
