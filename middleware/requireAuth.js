@@ -11,11 +11,11 @@ const requireAuth = async (req, res, next) => {
 
   const token = authorization.split(' ')[1]
   try {
-    const { _id } = jwt.verify(token, process.env.SECRET_KEY)
+    const _id = jwt.verify(token, process.env.SECRET_KEY)
 
     // select property allows you to just select the property you want instead of the whole document
     // e.g. only returns ID instead of username, password, etc.
-    req.user = await User.findOne({ _id }).select('_id')
+    req.user = await User.findOne(_id).select('_id')
     next()
   } catch (error) {
     console.log(error)
