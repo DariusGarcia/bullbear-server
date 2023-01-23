@@ -4,7 +4,11 @@ const cors = require('cors')
 const express = require('express')
 const routes = require('./routes')
 const app = express()
-app.use(cors())
+app.use(
+  cors({
+    origin: 'https://bullbearmarket.net',
+  })
+)
 const PORT = process.env.PORT || 18490
 const ATLAS_URI = process.env.ATLAS_URI
 
