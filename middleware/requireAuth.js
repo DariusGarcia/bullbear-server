@@ -1,4 +1,3 @@
-const ObjectId = require('mongoose').Types.ObjectId
 const jwt = require('jsonwebtoken')
 const { User } = require('../models/')
 
