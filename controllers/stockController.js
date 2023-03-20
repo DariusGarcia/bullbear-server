@@ -67,7 +67,8 @@ const searchBroadMarketData = async (req, res) => {
 // search for company profile
 const searchCompanyProfile = async (req, res) => {
   const { stock } = req.body
-  const api = process.env.BASE_URL + `${stock}?apikey=` + process.env.API_KEY
+  const api =
+    process.env.COMPANY_PROFILE + `${stock}?apikey=` + process.env.API_KEY
 
   try {
     const response = await fetch(api)
