@@ -6,7 +6,7 @@ const routes = require('./routes')
 const app = express()
 app.use(
   cors({
-    origin: 'https://bullbearmarket.net',
+    origin: process.env.ORIGIN_URL,
   })
 )
 const PORT = process.env.PORT || 18490
