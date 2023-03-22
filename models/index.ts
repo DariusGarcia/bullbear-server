@@ -1,3 +1,4 @@
+export {}
 const User = require('./userModel')
 const Watchlist = require('./watchlistModel')
 
