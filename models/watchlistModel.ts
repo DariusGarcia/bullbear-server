@@ -1,3 +1,4 @@
+export {}
 const { Schema, model } = require('mongoose')
 
 const watchlistSchema = new Schema(

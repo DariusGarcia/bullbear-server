@@ -1,7 +1,8 @@
+import  { Request, Response, NextFunction } from 'express';
 const jwt = require('jsonwebtoken')
 const { User } = require('../models/')
 
-const requireAuth = async (req, res, next) => {
+const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
   // verify authentication
   const { authorization } = req.headers
   if (!authorization) {

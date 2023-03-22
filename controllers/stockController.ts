@@ -1,7 +1,9 @@
+export {}
 require('dotenv').config()
+import  { Request, Response } from 'express';
 
 // search for main stock data
-const searchStock = async (req, res) => {
+const searchStock = async (req: Request, res: Response) => {
   const { ticker } = req.body
   const api = `${process.env.BASE_URL}${ticker}?apikey=${process.env.API_KEY}`
   try {
@@ -11,13 +13,13 @@ const searchStock = async (req, res) => {
       .catch((err) => console.log(err))
 
     res.status(200).json({ stockData: response })
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ error: error.message })
   }
 }
 // search for stock company details
-const searchCompanyDetails = async (req, res) => {
-  const api = process.env.COMPANY_DETAILS + process.env.API_KEY
+const searchCompanyDetails = async (req: Request, res: Response) => {
+  const api = process.env.COMPANY_DETAILS! + process.env.API_KEY!
   try {
     const response = await fetch(api)
       .then((res) => res.json())
@@ -25,13 +27,13 @@ const searchCompanyDetails = async (req, res) => {
       .catch((err) => console.log(err))
 
     res.status(200).json({ companyDetails: response })
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ error: error.message })
   }
 }
 
 // search for market performances (losers/gainers)
-const searchMarketPerformances = async (req, res) => {
+const searchMarketPerformances = async (req: Request, res: Response) => {
   const { query } = req.body
   const api =
     process.env.MARKET_ACTIVITY + `${query}?apikey=` + process.env.API_KEY
@@ -42,12 +44,12 @@ const searchMarketPerformances = async (req, res) => {
       .catch((err) => console.log(err))
 
     res.status(200).json({ marketPerformances: response })
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ error: error.message })
   }
 }
 // search for broad market data
-const searchBroadMarketData = async (req, res) => {
+const searchBroadMarketData = async (req: Request, res: Response) => {
   const { describe } = req.body
   const api =
     process.env.BROADMARKET_URL + `${describe}?apikey=` + process.env.API_KEY
@@ -59,13 +61,13 @@ const searchBroadMarketData = async (req, res) => {
       .catch((err) => console.log(err))
 
     res.status(200).json({ broadMarketData: response })
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ error: error.message })
   }
 }
 
 // search for company profile
-const searchCompanyProfile = async (req, res) => {
+const searchCompanyProfile = async (req: Request, res: Response) => {
   const { stock } = req.body
   const api =
     process.env.COMPANY_PROFILE + `${stock}?apikey=` + process.env.API_KEY
@@ -77,14 +79,14 @@ const searchCompanyProfile = async (req, res) => {
       .catch((err) => console.log(err))
 
     res.status(200).json({ companyProfileData: response })
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ error: error.message })
   }
 }
 
 // search for sector performances
-const searchSectorPerformances = async (req, res) => {
-  const api = process.env.SECTOR_URL + process.env.API_KEY
+const searchSectorPerformances = async (req: Request, res: Response) => {
+  const api = process.env.SECTOR_URL! + process.env.API_KEY!
 
   try {
     const response = await fetch(api)
@@ -93,13 +95,13 @@ const searchSectorPerformances = async (req, res) => {
       .catch((err) => console.log(err))
 
     res.status(200).json({ sectorPerformanceData: response })
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ error: error.message })
   }
 }
 
 // search for stock news
-const searchStockNews = async (req, res) => {
+const searchStockNews = async (req: Request, res: Response) => {
   const { stock } = req.body
   const limit = 15
 
@@ -115,13 +117,13 @@ const searchStockNews = async (req, res) => {
       .catch((err) => console.log(err))
 
     res.status(200).json({ stockNews: response })
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ error: error.message })
   }
 }
 
 // search for stock peers
-const searchStockPeers = async (req, res) => {
+const searchStockPeers = async (req: Request, res: Response) => {
   const { stock } = req.body
 
   const api = process.env.STOCK_PEERS + `${stock}&apikey=` + process.env.API_KEY
@@ -133,13 +135,13 @@ const searchStockPeers = async (req, res) => {
       .catch((err) => console.log(err))
 
     res.status(200).json({ stockPeers: response })
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ error: error.message })
   }
 }
 
 // search for stock ratings
-const searchStockRatings = async (req, res) => {
+const searchStockRatings = async (req: Request, res: Response) => {
   const { stock } = req.body
 
   const api =
@@ -152,13 +154,13 @@ const searchStockRatings = async (req, res) => {
       .catch((err) => console.log(err))
 
     res.status(200).json({ stockRating: response })
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ error: error.message })
   }
 }
 
 // search for stock chart price data
-const searchChartData = async (req, res) => {
+const searchChartData = async (req: Request, res: Response) => {
   const { stock } = req.body
   const timeInterval = '30min'
 
@@ -174,7 +176,7 @@ const searchChartData = async (req, res) => {
       .catch((err) => console.log(err))
 
     res.status(200).json({ chartPriceData: response })
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ error: error.message })
   }
 }

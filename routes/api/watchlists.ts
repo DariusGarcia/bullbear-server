@@ -1,3 +1,4 @@
+export {}
 const watchlistRouter = require('express').Router()
 const {
   getAllStocks,

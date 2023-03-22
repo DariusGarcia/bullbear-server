@@ -1,5 +1,6 @@
+export {}
 const stockRouter = require('express').Router()
-
+import { Request, Response } from 'express';
 // import controller functions
 const {
   searchStock,
@@ -15,7 +16,7 @@ const {
 } = require('../../controllers/stockController')
 
 // testing route
-stockRouter.get('/', (req, res) => {
+stockRouter.get('/', (req: Request, res: Response, ) => {
   res.json({ message: 'Welcome to the API!' })
 })
 
