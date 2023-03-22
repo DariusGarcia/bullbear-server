@@ -1,14 +1,17 @@
 require('dotenv').config()
-const mongoose = require('mongoose')
 const cors = require('cors')
+const mongoose = require('mongoose')
+const limiter = require('./middleware/rateLimiter')
 const express = require('express')
 const routes = require('./routes')
 const app = express()
+
 app.use(
   cors({
     origin: process.env.ORIGIN_URL,
   })
 )
+
 const PORT = process.env.PORT || 18490
 const ATLAS_URI = process.env.ATLAS_URI
 
@@ -16,6 +19,9 @@ process.on('uncaughtException', (err) => {
   console.error(err)
   console.log('\nNode NOT Exiting...')
 })
+
+//  the IP address of the request might be the IP of the load balancer/reverse proxy (making the rate limiter effectively a global one and blocking all requests once the limit is reached) or undefined
+app.set('trust proxy', 1)
 
 // middleware
 app.use(express.json())
@@ -28,6 +34,9 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods','GET, POST, PATCH, DELETE, OPTIONS')
   next()
 })
+// Apply the rate limiting middleware to all api requests
+app.use('/api/stocks', limiter)
+app.use('/api/watchlist', limiter)
 
 // routes
 app.use(routes)
