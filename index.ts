@@ -1,8 +1,9 @@
+
 require('dotenv').config()
 const cors = require('cors')
 const mongoose = require('mongoose')
 const limiter = require('./middleware/rateLimiter')
-const express = require('express')
+import  express, { Request, Response, NextFunction } from 'express';
 const routes = require('./routes')
 const app = express()
 
@@ -12,7 +13,7 @@ app.use(
   })
 )
 
-const PORT = process.env.PORT || 18490
+const PORT = Number(process.env.PORT) || 18490
 const ATLAS_URI = process.env.ATLAS_URI
 
 process.on('uncaughtException', (err) => {
@@ -27,7 +28,7 @@ app.set('trust proxy', 1)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 // prettier-ignore
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   console.log(req.path, req.method)
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept')
@@ -50,6 +51,6 @@ mongoose.connect(ATLAS_URI, {useNewUrlParser: true, useUnifiedTopology: true,})
     console.log(`🚀 ~ Now listening on port ${PORT}\n-------------------------------\n`)
     })
   })
-  .catch((err) => console.log(err))
+  .catch((err: ErrorCallback) => console.log(err))
 
 module.exports = app
