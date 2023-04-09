@@ -1,4 +1,4 @@
-import  { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express'
 const jwt = require('jsonwebtoken')
 const { User } = require('../models/')
 
@@ -6,7 +6,9 @@ const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
   // verify authentication
   const { authorization } = req.headers
   if (!authorization) {
-    return res.status(401).json({ error: 'Authorization token required' })
+    return res
+      .status(401)
+      .json({ error: 'Authorization token required or JWT expired' })
   }
 
   const token = authorization.split(' ')[1]
