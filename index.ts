@@ -2,12 +2,11 @@ require('dotenv').config()
 const cors = require('cors')
 const mongoose = require('mongoose')
 const limiter = require('./middleware/rateLimiter')
-import  express, { Request, Response, NextFunction } from 'express';
+import express, { Request, Response, NextFunction } from 'express'
 const routes = require('./routes')
 const app = express()
 
-const allowedOrigins = process.env.ORIGIN_URL.split(',');
-
+const allowedOrigins = process.env.ORIGIN_URL.split(',')
 
 // app.use(
 //   cors({
@@ -17,16 +16,16 @@ const allowedOrigins = process.env.ORIGIN_URL.split(',');
 
 app.use(
   cors({
-    origin: function (origin, callback) {
+    origin: function (origin: any, callback: any) {
       // Check if the origin is in the allowed origins array
       if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
+        callback(null, true)
       } else {
-        callback(new Error('Not allowed by CORS'));
+        callback(new Error('Not allowed by CORS'))
       }
     },
   })
-);
+)
 
 const PORT = Number(process.env.PORT) || 18490
 const ATLAS_URI = process.env.ATLAS_URI
