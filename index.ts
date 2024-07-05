@@ -6,7 +6,7 @@ import express, { Request, Response, NextFunction } from 'express'
 const routes = require('./routes')
 const app = express()
 
-const allowedOrigins = process.env.ORIGIN_URL.split(',')
+const allowedOrigins = process.env.ORIGIN_URL?.split(',')
 
 // app.use(
 //   cors({
@@ -18,7 +18,7 @@ app.use(
   cors({
     origin: function (origin: any, callback: any) {
       // Check if the origin is in the allowed origins array
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      if (!origin || (allowedOrigins ?? []).indexOf(origin) !== -1) {
         callback(null, true)
       } else {
         callback(new Error('Not allowed by CORS'))
